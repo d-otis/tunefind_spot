@@ -13,7 +13,10 @@ then use that spotify track id to add track to spotify playlist
 
 collect spotify URIs in an array then add them to playlist!
 
-https://www.tunefind.com/forward/song/138125?store=spotify&referrer=aHR0cHM6Ly93d3cudHVuZWZpbmQuY29tL3Nob3cvZGFyay9zZWFzb24tMS81NDgxOA&x=q89ugh&y=rhtgzd5pz6sw84o88wo4gg8ogwsc0wk
+https://www.tunefind.com/forward/song/138125
+?store=spotify
+&referrer=aHR0cHM6Ly93d3cudHVuZWZpbmQuY29tL3Nob3cvZGFyay9zZWFzb24tMS81NDgxOA
+&x=q89ugh&y=rhtgzd5pz6sw84o88wo4gg8ogwsc0wk
 
 https://open.spotify.com/track/4gqbBxOfJpFdXJMAfyKXlq
 
@@ -25,3 +28,7 @@ https://www.tunefind.com/forward/song/19952?store=spotify&referrer=aHR0cHM6Ly93d
 
 keep the streets empty for me
 https://www.tunefind.com/forward/song/16494?store=spotify&referrer=aHR0cHM6Ly93d3cudHVuZWZpbmQuY29tL3Nob3cvZGFyay9zZWFzb24tMS81NTE0NA&x=q89vnx&y=8o4vk9y0d1k4kogg04go884kcgs4ggc
+
+https://www.tunefind.com/forward/song/137568?store=spotify&referrer=aHR0cHM6Ly93d3cudHVuZWZpbmQuY29tL3Nob3cvZGFyay9zZWFzb24tMS81NTE0NA&x=q89vnx&y=6r455dmc07k8wo0g0w0sws4gg0wg884
+
+undefined
