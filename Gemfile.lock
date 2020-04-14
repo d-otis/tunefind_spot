@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    childprocess (3.0.0)
     coderay (1.1.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -51,6 +52,10 @@ GEM
       addressable (~> 2.5.2)
       omniauth-oauth2 (~> 1.5.0)
       rest-client (~> 2.0.2)
+    rubyzip (2.3.0)
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     spotify-client (0.0.10)
       excon (~> 0.37)
     sqlite3 (1.4.2)
@@ -67,6 +72,7 @@ DEPENDENCIES
   rake
   require_all
   rspotify
+  selenium-webdriver
   spotify-client
   sqlite3
 
