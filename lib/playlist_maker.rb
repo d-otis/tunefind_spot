@@ -26,18 +26,19 @@ class PlaylistMaker
 
 	def get_token
 		puts ""
-		puts "Enter Token"
+		puts "Enter token from"
+		puts "https://developer.spotify.com/console/post-playlist-tracks/"
 		puts ""
 		token = gets.strip
 	end
 
-	def get_playlist_id
-		puts ""
-		puts "Enter Playlist ID"
-		puts ""
-		id = gets.strip
-		id = id.split("spotify:playlist:").last
-	end
+	# def get_playlist_id
+	# 	puts ""
+	# 	puts "Enter Playlist ID"
+	# 	puts ""
+	# 	id = gets.strip
+	# 	id = id.split("spotify:playlist:").last
+	# end
 
 	def create_playlist
 		user_id = 'danfoley85'
