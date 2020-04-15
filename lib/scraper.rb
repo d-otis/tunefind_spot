@@ -127,6 +127,10 @@ class Scraper
 		get_episode_urls(series_url).collect {|episode_url| spotify_ids_from_ep_page(episode_url)}.flatten.uniq
 	end
 
+	def series_song_count(series_url)
+
+	end
+
  
 
 end

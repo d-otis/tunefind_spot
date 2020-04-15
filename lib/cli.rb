@@ -2,15 +2,22 @@ class CLI
 
 	def start
 		# query_result_hashes(get_search_term)
+		scraper = Scraper.new
 		search_term = get_search_term
 		display_show_results(search_term)
 		show_url = select_from_results(search_term)[:url]
-		# Scraper.new.make_songs(show[:url])
-		pl = PlaylistMaker.new
-		pl.token = pl.get_token
-		pl.create_playlist
-		spotify_ids = Scraper.new.series_spot_ids(show_url)
-		pl.make_playlist_from_ids(spotify_ids, pl.playlist_id)
+		num_songs = scraper.get_song_hashes(show_url).size
+		puts "There are #{num_songs} songs in this show."
+		puts "Do you want to continue?"
+		input = gets.strip.downcase
+		if ['no', 'no'].include?(input)
+			# Scraper.new.make_songs(show[:url])
+			pl = PlaylistMaker.new
+			pl.token = pl.get_token
+			pl.create_playlist
+			spotify_ids = scraper.series_spot_ids(show_url)
+			pl.add_tracks_to_playlist(spotify_ids, pl.playlist_id)
+		end
 	end
 
 	def get_search_term

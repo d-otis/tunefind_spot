@@ -2,10 +2,11 @@ class PlaylistMaker
 
 	attr_accessor :token, :playlist_id
 
-	def make_playlist_from_ids(ids, playlist_id)
+	def add_tracks_to_playlist(ids, playlist_id)
 		 user_id = 'danfoley85'
-		 # playlist_id = "2WR2BB9U6yTBNKcIpZHm5o"
-		 spotify_conn.add_user_tracks_to_playlist(user_id, playlist_id, ids)
+		 ids.each do |id|
+		 	spotify_conn.add_user_tracks_to_playlist(user_id, playlist_id, id)
+		 end
 	end
 
 	def spotify_conn()
@@ -49,6 +50,18 @@ class PlaylistMaker
 		# returns playlist id
 	end
 
+	def over_fifty?(arr)
+		arr.size > 50
+	end
+
+
+
 end
 
+
+
 # spotify:playlist:4VoZxQukWmhK6vJr0fK2S8
+
+# if id list is over 50 then add songs 50 at a time
+# over 50?
+# enter loop that adds tracks 50 ids @ a time
