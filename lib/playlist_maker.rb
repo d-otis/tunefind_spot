@@ -1,26 +1,54 @@
 class PlaylistMaker
 
-	# 'https://www.tunefind.com/forward/song/19952?store=spotify&referrer=aHR0cHM6Ly93d3cudHVuZWZpbmQuY29tL3Nob3cvZGFyay9zZWFzb24tMS81NTE0NA&x=q88iaq&y=e74ejivnpvs4048cw84c8ko8ckskk08'
+	attr_accessor :token, :playlist_id
 
-	def tunefind_ids
-		Song.all.collect {|song| song.tunefind_id}
+	def make_playlist_from_ids(ids, playlist_id)
+		 user_id = 'danfoley85'
+		 # playlist_id = "2WR2BB9U6yTBNKcIpZHm5o"
+		 spotify_conn.add_user_tracks_to_playlist(user_id, playlist_id, ids)
 	end
 
-	def spotify_ids
-		arr = tunefind_ids.collect do |id|
-			url = "https://www.tunefind.com/forward/song/#{id}?store=spotify&referrer=aHR0cHM6Ly93d3cudHVuZWZpbmQuY29tL3Nob3cvZGFyay9zZWFzb24tMS81NDgxOA&x=q89ugh&y=kxpa0k07fnk0socw4c4808w8sgcowwk"
-			doc = Nokogiri::HTML(open(url))
-			binding.pry
-			get_spotify_id(doc)
-		end
-		
+	def spotify_conn()
+		# token = "BQAU-SVrnNdHsCu2dDYUGyv5ZWy4xDO4x6brklGNw-EuikG932KfxzT-0SqoXxl8HIyXJHzD0bDgxLmq6pPuT0R-eh5pN6hmicJPm6HmUNMh5WdCA9_VqRj6Ws7Q9a1qAK9EJLiokF6U1Q7yl_l1A-IK-B_nR0Pbxw91H6ygXtMHXMvd2E25-2SP1YONLsl240CIDVx0ADlJwnJjzSYFtbwDp3D1eDCAxAR1EbVuth90j6aI-LNnI485ftrVyYdnU9DE2tgzy-JMYkrm"
+		config = {
+		  :access_token => @token,  # initialize the client with an access token to perform authenticated calls
+		  :raise_errors => true,  # choose between returning false or raising a proper exception when API calls fails
+
+		  # Connection properties
+		  :retries       => 0,    # automatically retry a certain number of times before returning
+		  :read_timeout  => 10,   # set longer read_timeout, default is 10 seconds
+		  :write_timeout => 10,   # set longer write_timeout, default is 10 seconds
+		  :persistent    => false # when true, make multiple requests calls using a single persistent connection. Use +close_connection+ method on the client to manually clean up sockets
+		}
+		client = Spotify::Client.new(config)
 	end
 
-	def get_spotify_id(doc)
-		binding.pry
-		doc.search('meta')[4].values[1].split('https://open.spotify.com/track/').last
+	def get_token
+		puts ""
+		puts "Enter Token"
+		puts ""
+		token = gets.strip
+	end
+
+	def get_playlist_id
+		puts ""
+		puts "Enter Playlist ID"
+		puts ""
+		id = gets.strip
+		id = id.split("spotify:playlist:").last
+	end
+
+	def create_playlist
+		user_id = 'danfoley85'
+		puts ""
+		puts "Enter a Playlist Name"
+		puts ""
+		name = gets.strip
+		new_playlist = spotify_conn.create_user_playlist(user_id, name, is_public = true)
+		@playlist_id = new_playlist["id"]
+		# returns playlist id
 	end
 
 end
 
-# need to spit out a list of Spotify track ids
+# spotify:playlist:4VoZxQukWmhK6vJr0fK2S8

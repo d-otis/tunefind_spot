@@ -15,3 +15,7 @@ end
 task :get_spot do
 	spot_ids = PlaylistMaker.new.spotify_ids
 end
+
+task :cli do
+	CLI.new.start
+end

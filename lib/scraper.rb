@@ -4,25 +4,39 @@ class Scraper
 		get_song_hashes
 	end
 
-	def tunefind_scrape
-		
+	def query_show(show)
+		index_url = "https://www.tunefind.com"
+		url_prefix = "https://www.tunefind.com/search/site?q="
+		doc = Nokogiri::HTML(open(url_prefix + show))
+		rows = doc.search(".tf-search-highlight")
+		hashes = rows.collect do |row|
+			{
+				name: row.text,
+				url: index_url + row['href']
+
+			}
+		end
 	end
 
-	def get_season_urls
+	def get_season_urls(url)
 		# Get links to seasons
-		@index_url = 'https://www.tunefind.com/show/dark'
-		@series_doc = Nokogiri::HTML(open(@index_url))
-		@series_doc.search('.EpisodeListItem__title___32XUR').collect do |season|
-			@index_url.split('/show/').first + season.search('a').attribute('href').value
+		# @index_url = 'https://www.tunefind.com/show/dark'
+		# @series_doc = Nokogiri::HTML(open(@index_url))
+		# @series_doc.search('.EpisodeListItem__title___32XUR').collect do |season|
+		# 	@index_url.split('/show/').first + season.search('a').attribute('href').value
+		# end
+		index_url = 'https://www.tunefind.com/show/dark'
+		series_doc = Nokogiri::HTML(open(url))
+		series_doc.search('.EpisodeListItem__title___32XUR').collect do |season|
+			url.split('/show/').first + season.search('a').attribute('href').value
 		end
 		# needs to return array with season URLS
 	end
 
-	def get_episode_urls
+	def get_episode_urls(series_url)
 		# receives array from #scrape_series
 		#get links to episodes
-		season_urls = get_season_urls
-		season_urls.collect do |season|
+		get_season_urls(series_url).collect do |season|
 			doc = Nokogiri::HTML(open(season))
 			episodes = doc.search(".EpisodeListItem__title___32XUR")
 			ep_ids = episodes.collect do |ep|
@@ -36,10 +50,9 @@ class Scraper
 		# returns a 1-dimensional array of episode links for all seasons
 	end
 
-	def scrape_episodes
+	def scrape_episodes(series_url)
 		# get song tunefind song ids
-		episode_urls = get_episode_urls
-		episode_urls.each do |url|
+		get_episode_urls(series_url).each do |url|
 			doc = Nokogiri::HTML(open(url))
 			song_ids = doc.search("a.SongTitle__link___2OQHD").collect do |song|
 				song.attribute('href').value.split('/').last
@@ -51,9 +64,8 @@ class Scraper
 		# 									  |id above|
 	end
 
-	def get_song_hashes
-		episode_urls = get_episode_urls
-		episode_urls.collect do |url|
+	def get_song_hashes(series_url)
+		get_episode_urls(series_url).collect do |url|
 			doc = Nokogiri::HTML(open(url))
 			ep_song_hashes = doc.search("div.SongRow__container___3eT_L").collect do |song|
 				tunefind_id = id_handler(song)
@@ -74,8 +86,8 @@ class Scraper
 		id > 0 ? id : song.search('a').attribute('href').value.split('/')[-3].to_i
 	end
 
-	def make_songs
-		get_song_hashes.flatten.each do |attrs|
+	def make_songs(series_url)
+		get_song_hashes(series_url).flatten.each do |attrs|
 			Song.new(attrs)
 		end
 	end
@@ -96,16 +108,6 @@ class Scraper
 		driver.quit
 		urls
 
-		# ["https://open.spotify.com/track/6BJXuY0lY0EUtSDCgkYnqE",
-		#  "https://open.spotify.com/album/4LHSzEQPF6Iw20BGppFk31?highlight=spotify:track:2wOAeV7IE1vxJDn6LsaywO",
-		#  "https://open.spotify.com/album/4oLTrzCxCJY3TGRTqG0hTW?highlight=spotify:track:2BDI0r1RDQ37zTdlPKIAJc",
-		#  "https://open.spotify.com/album/2Td98kc6vOtQPrw2aQfCPP?highlight=spotify:track:4gqbBxOfJpFdXJMAfyKXlq",
-		#  "https://open.spotify.com/album/2Td98kc6vOtQPrw2aQfCPP?highlight=spotify:track:4gqbBxOfJpFdXJMAfyKXlq",
-		#  "https://open.spotify.com/album/5vCoRAQaCRYhErG37FPBsc?highlight=spotify:track:61OMeme3atDikStS4QxGIE",
-		#  "https://open.spotify.com/album/4j96ghzFr5U0NUAG5Hkewh?highlight=spotify:track:5f73EH8020u0znMDJUYTMj",
-		#  "https://open.spotify.com/album/1GVLpNu9gUu27YRk4V5NJo?highlight=spotify:track:4tYAKs7kyhodcHARQ05r1T",
-		#  "https://open.spotify.com/album/75rNmi54sgZfKVYaaLKhUT?highlight=spotify:track:1kVg5Au1O4NAWn1bMHu3Bs",
-		#  "https://open.spotify.com/album/75rNmi54sgZfKVYaaLKhUT?highlight=spotify:track:2tRvWiJsKbLWjHMxt5jxI0"]
 	end
 
 	def spotify_ids_from_ep_page(url)
@@ -114,24 +116,17 @@ class Scraper
 		prefix = "spotify:track:"
 		urls = sel(url) #=> returns array of spotify URLS
 		splits = urls.collect {|url| url.split("track")} #=> splits URL leaving /6BJXuY0lY0EUtSDCgkYnqE or :2wOAeV7IE1vxJDn6LsaywO
-		to_trim = splits.collect {|split| split[1]} #=> just keeps the code that i need (discards https://...etc)
+		to_trim = splits.collect {|split| split[1]}.reject {|id| id.nil?} #=> just keeps the code that i need (discards https://...etc)
 		trimmed = to_trim.collect {|el| el[1..-1]}
 		trimmed.collect {|raw| prefix + raw}
-
-		# returns the following:
-		# => ["spotify:track:6BJXuY0lY0EUtSDCgkYnqE",
-		#  "spotify:track:2wOAeV7IE1vxJDn6LsaywO",
-		#  "spotify:track:2BDI0r1RDQ37zTdlPKIAJc",
-		#  "spotify:track:4gqbBxOfJpFdXJMAfyKXlq",
-		#  "spotify:track:4gqbBxOfJpFdXJMAfyKXlq",
-		#  "spotify:track:61OMeme3atDikStS4QxGIE",
-		#  "spotify:track:5f73EH8020u0znMDJUYTMj",
-		#  "spotify:track:4tYAKs7kyhodcHARQ05r1T",
-		#  "spotify:track:1kVg5Au1O4NAWn1bMHu3Bs",
-		#  "spotify:track:2tRvWiJsKbLWjHMxt5jxI0"]
 	end
 
-	# spotify:track:6BJXuY0lY0EUtSDCgkYnqE,spotify:track:2wOAeV7IE1vxJDn6LsaywO,spotify:track:2BDI0r1RDQ37zTdlPKIAJc,spotify:track:4gqbBxOfJpFdXJMAfyKXlq,spotify:track:4gqbBxOfJpFdXJMAfyKXlq,spotify:track:61OMeme3atDikStS4QxGIE,spotify:track:5f73EH8020u0znMDJUYTMj,spotify:track:4tYAKs7kyhodcHARQ05r1T,spotify:track:1kVg5Au1O4NAWn1bMHu3Bs,spotify:track:2tRvWiJsKbLWjHMxt5jxI0
+	
+	# for every episode link make me an array of spotify URIs
+	def series_spot_ids(series_url)
+		get_episode_urls(series_url).collect {|episode_url| spotify_ids_from_ep_page(episode_url)}.flatten.uniq
+	end
 
+ 
 
 end

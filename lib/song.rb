@@ -4,29 +4,29 @@ class Song
 
 	@@all = []
 
-	# def initialize(attrs)
-	# 	attrs.each do |k, v|
-	# 		self.send("#{k}=", v)
-	# 	end
-	# 	# save
-	# 	insert
-	# end
+	def initialize(attrs)
+		attrs.each do |k, v|
+			self.send("#{k}=", v)
+		end
+		save
+		# insert
+	end
 
-	def self.all1
+	def self.all
 		@@all
 	end
 
 	def save
-		self.class.all1 << self
+		self.class.all << self
 	end
 
-	def self.all
-		sql = <<-SQL
-			SELECT * FROM songs
-		SQL
-		rows = DB[:conn].execute(sql)
-		self.new_from_rows(rows)
-	end
+	# def self.all
+	# 	sql = <<-SQL
+	# 		SELECT * FROM songs
+	# 	SQL
+	# 	rows = DB[:conn].execute(sql)
+	# 	self.new_from_rows(rows)
+	# end
 
 	def self.new_from_rows(rows)
 		rows.collect do |row|

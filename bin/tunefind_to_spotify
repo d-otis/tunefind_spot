@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
+require_relative '../config/environment'
 
 puts "hello world"
 
-Scraper.new.start
+CLI.new.start
