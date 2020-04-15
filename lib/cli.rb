@@ -6,8 +6,10 @@ class CLI
 		search_term = get_search_term
 		display_show_results(search_term)
 		show_url = select_from_results(search_term)[:url]
+		puts ""
 		puts "There are #{scraper.series_song_count(show_url)} songs in this show."
 		puts "Do you want to continue?"
+		puts ""
 		input = gets.strip.downcase
 		if !['no', 'n'].include?(input)
 			# Scraper.new.make_songs(show[:url])
