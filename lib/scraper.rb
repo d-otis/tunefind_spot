@@ -128,7 +128,13 @@ class Scraper
 	end
 
 	def series_song_count(series_url)
-
+		doc = Nokogiri::HTML(open(series_url))
+		series_song_count = 0
+		doc.search(".EpisodeListItem__container___3A-mL").each do |row|
+			season_song_count = row.search("ul.list-unstyled li").last.text.split(" songs").join.to_i
+			series_song_count += season_song_count
+		end
+		series_song_count
 	end
 
  
