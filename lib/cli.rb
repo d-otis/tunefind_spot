@@ -9,7 +9,6 @@ class CLI
 		pl = PlaylistMaker.new
 		pl.token = pl.get_token
 		pl.create_playlist
-		binding.pry
 		spotify_ids = Scraper.new.series_spot_ids(show_url)
 		pl.make_playlist_from_ids(spotify_ids, pl.playlist_id)
 	end

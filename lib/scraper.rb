@@ -100,7 +100,7 @@ class Scraper
 		# i want to click all of the buttons and get the spot.url in an array
 		buttons.each do |button|
 			button.click
-			sleep(2)
+			sleep(1)
 			driver.switch_to.window(driver.window_handles.last)
 			urls << driver.current_url
 			driver.switch_to.window(driver.window_handles.first)
