@@ -56,6 +56,5 @@ class CLI
 		# {:name=>"It's Suppertime!", 
 		# :url=>"https://www.tunefind.com/show/its-suppertime"}
 	end
-
 end
 

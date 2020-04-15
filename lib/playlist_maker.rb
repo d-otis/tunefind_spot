@@ -49,19 +49,4 @@ class PlaylistMaker
 		@playlist_id = new_playlist["id"]
 		# returns playlist id
 	end
-
-	def over_fifty?(arr)
-		arr.size > 50
-	end
-
-
-
 end
-
-
-
-# spotify:playlist:4VoZxQukWmhK6vJr0fK2S8
-
-# if id list is over 50 then add songs 50 at a time
-# over 50?
-# enter loop that adds tracks 50 ids @ a time
