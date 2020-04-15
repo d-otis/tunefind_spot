@@ -9,7 +9,7 @@ class CLI
 		puts "There are #{scraper.series_song_count(show_url)} songs in this show."
 		puts "Do you want to continue?"
 		input = gets.strip.downcase
-		if ['no', 'no'].include?(input)
+		if !['no', 'n'].include?(input)
 			# Scraper.new.make_songs(show[:url])
 			pl = PlaylistMaker.new
 			pl.token = pl.get_token
