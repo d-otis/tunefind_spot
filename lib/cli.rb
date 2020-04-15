@@ -18,6 +18,8 @@ class CLI
 			pl.create_playlist
 			spotify_ids = scraper.series_spot_ids(show_url)
 			pl.add_tracks_to_playlist(spotify_ids, pl.playlist_id)
+		else
+			puts "Good bye"
 		end
 	end
 
