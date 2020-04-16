@@ -3,6 +3,8 @@ class PlaylistMaker
 	attr_accessor :token, :playlist_id
 
 	def add_tracks_to_playlist(ids, playlist_id)
+		# from an array of spotify uris => 
+		# add each, one by one, to playlist to avoid exceding API quota of 100 per request
 		 user_id = 'danfoley85'
 		 ids.each do |id|
 		 	spotify_conn.add_user_tracks_to_playlist(user_id, playlist_id, id)
@@ -10,7 +12,6 @@ class PlaylistMaker
 	end
 
 	def spotify_conn()
-		# token = "BQAU-SVrnNdHsCu2dDYUGyv5ZWy4xDO4x6brklGNw-EuikG932KfxzT-0SqoXxl8HIyXJHzD0bDgxLmq6pPuT0R-eh5pN6hmicJPm6HmUNMh5WdCA9_VqRj6Ws7Q9a1qAK9EJLiokF6U1Q7yl_l1A-IK-B_nR0Pbxw91H6ygXtMHXMvd2E25-2SP1YONLsl240CIDVx0ADlJwnJjzSYFtbwDp3D1eDCAxAR1EbVuth90j6aI-LNnI485ftrVyYdnU9DE2tgzy-JMYkrm"
 		config = {
 		  :access_token => @token,  # initialize the client with an access token to perform authenticated calls
 		  :raise_errors => true,  # choose between returning false or raising a proper exception when API calls fails
