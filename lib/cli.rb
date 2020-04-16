@@ -15,9 +15,7 @@ class CLI
 			spotify_ids = scraper.series_spot_ids(show_url)
 			pl.add_tracks_to_playlist(spotify_ids, pl.playlist_id)
 		else
-			puts ""
-			puts "Good bye"
-			puts ""
+			goodbye
 		end
 	end
 
@@ -43,7 +41,7 @@ class CLI
 	end
 
 	def select_from_results(search_term)
-		# allows use to select from display_show_results
+		# allows user to select from display_show_results
 		puts ""
 		puts "Please Select a Show:"
 		puts ""
@@ -59,6 +57,12 @@ class CLI
 		puts ""
 		puts "There are #{scraper.series_song_count(show_url)} songs in this show."
 		puts "Do you want to continue?"
+		puts ""
+	end
+
+	def goodbye
+		puts ""
+		puts "Good bye"
 		puts ""
 	end
 end
