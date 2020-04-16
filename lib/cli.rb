@@ -6,17 +6,10 @@ class CLI
 		display_show_results(search_term)
 		show_url = select_from_results(search_term)[:url]
 		display_series_song_count(scraper, show_url)
+
 		input = gets.strip.downcase
-		if !['no', 'n'].include?(input)
-			# Scraper.new.make_songs(show[:url])
-			pl = PlaylistMaker.new
-			pl.token = pl.get_token
-			pl.create_playlist
-			spotify_ids = scraper.series_spot_ids(show_url)
-			pl.add_tracks_to_playlist(spotify_ids, pl.playlist_id)
-		else
-			goodbye
-		end
+		
+		!['no', 'n'].include?(input) ? make_playlist(scraper, show_url) : goodbye
 	end
 
 	def get_search_term
@@ -64,6 +57,15 @@ class CLI
 		puts ""
 		puts "Good bye"
 		puts ""
+	end
+
+	def make_playlist(scraper, show_url)
+		pl = PlaylistMaker.new
+		pl.token = pl.get_token
+		pl.create_playlist
+		spotify_ids = scraper.series_spot_ids(show_url)
+		pl.add_tracks_to_playlist(spotify_ids, pl.playlist_id)
+		goodbye
 	end
 end
 
