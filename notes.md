@@ -2,6 +2,7 @@
 
 - `bundle install` all dependencies
 - change `user_id` to one of your choosing in `playlist_maker.rb` --> `#add_tracks_to_playlist`
+- run in terminal by using `bin/tunefind_to_spotify`
 
 ## To-Do
 
