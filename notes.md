@@ -8,3 +8,4 @@
 
 1. Autogenerate playlist name creation
 1. Automate making new token and/or using client key/secret flow
+1. ignore episode pages without any songs
