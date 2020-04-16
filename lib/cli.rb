@@ -5,10 +5,7 @@ class CLI
 		search_term = get_search_term
 		display_show_results(search_term)
 		show_url = select_from_results(search_term)[:url]
-		puts ""
-		puts "There are #{scraper.series_song_count(show_url)} songs in this show."
-		puts "Do you want to continue?"
-		puts ""
+		display_series_song_count(scraper, show_url)
 		input = gets.strip.downcase
 		if !['no', 'n'].include?(input)
 			# Scraper.new.make_songs(show[:url])
@@ -18,7 +15,9 @@ class CLI
 			spotify_ids = scraper.series_spot_ids(show_url)
 			pl.add_tracks_to_playlist(spotify_ids, pl.playlist_id)
 		else
+			puts ""
 			puts "Good bye"
+			puts ""
 		end
 	end
 
@@ -54,6 +53,13 @@ class CLI
 		# returns hash of show selected...
 		# {:name=>"It's Suppertime!", 
 		# :url=>"https://www.tunefind.com/show/its-suppertime"}
+	end
+
+	def display_series_song_count(scraper, show_url)
+		puts ""
+		puts "There are #{scraper.series_song_count(show_url)} songs in this show."
+		puts "Do you want to continue?"
+		puts ""
 	end
 end
 
