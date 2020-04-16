@@ -1,7 +1,6 @@
 class CLI
 
 	def start
-		# query_result_hashes(get_search_term)
 		scraper = Scraper.new
 		search_term = get_search_term
 		display_show_results(search_term)

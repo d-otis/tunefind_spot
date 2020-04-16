@@ -32,15 +32,8 @@ class PlaylistMaker
 		token = gets.strip
 	end
 
-	# def get_playlist_id
-	# 	puts ""
-	# 	puts "Enter Playlist ID"
-	# 	puts ""
-	# 	id = gets.strip
-	# 	id = id.split("spotify:playlist:").last
-	# end
-
 	def create_playlist
+		# returns playlist_id and sets instance variable of the same
 		user_id = 'danfoley85'
 		puts ""
 		puts "Enter a Playlist Name"
@@ -48,6 +41,5 @@ class PlaylistMaker
 		name = gets.strip
 		new_playlist = spotify_conn.create_user_playlist(user_id, name, is_public = true)
 		@playlist_id = new_playlist["id"]
-		# returns playlist id
 	end
 end
