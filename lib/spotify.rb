@@ -1,5 +1,5 @@
-config = {
-  :access_token => 'BQDXfgz7ClzuhlnBX_S1ZGAU83Xpfj7MI5k1d1fDk0y4uWtSYHFQh32dUxyg91s__JFp5seu0__9y6b0jBZnMCCb5SghaHnAZk9KTSGkxGVBJe32N_-FH8_QGZ6s2MgyAoIOO7TQSuiLVDUatnG_q778II8LseQ5LBGpdkzY3g-beo5_6jId5aIaZCK5wJKWXwf2uNYNmu4Gi1tnT_ZwSm8bPxSrhfn2',  # initialize the client with an access token to perform authenticated calls
+CONFIG = {
+  :access_token => "BQB6kaCw3--HAhG62lEIgPkD5JcFqhuHM2KT7ZzjwNjPyq1IZw0kxaCqzce73kb11P39Q4sMscEFUG52Z9pAS4Ub-z0Ff-YpBEanP-fAJVugNK8mmsH31lfX2Hams2LSAFcG2sA5gI53B4-_judcMA3MYLkySiWkyhaURmy4TValsTtchrR3riAInsXxBF9Ut_wJDvH8ZqyFE6nzP1tNxVEw7GJTvxbl8qFQtM404MrRL15DEAabTZF5D65Hq2sqBSvzrFCZE5DFvPuX",
   :raise_errors => true,  # choose between returning false or raising a proper exception when API calls fails
 
   # Connection properties
