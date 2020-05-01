@@ -7,15 +7,3 @@ end
 task :console do
 	Pry.start
 end
-
-task :scrape do
-	start = Scraper.new.make_songs
-end
-
-task :get_spot do
-	spot_ids = PlaylistMaker.new.spotify_ids
-end
-
-task :cli do
-	CLI.new.start
-end
