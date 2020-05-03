@@ -3,20 +3,19 @@ class PlaylistMaker
 	attr_accessor :token, :playlist_id, :client, :user_id
 
 	def initialize
+		# change this to your user ID
 		@user_id = "danfoley85"
 	end
 
 	def add_tracks_to_playlist(ids, playlist_id)
 		# from an array of spotify uris => 
 		# add each, one by one, to playlist to avoid exceding API quota of 100 per request
-		 user_id = 'danfoley85'
 		 ids.each do |id|
-		 	spotify_conn.add_user_tracks_to_playlist(user_id, playlist_id, id)
+		 	spotify_conn.add_user_tracks_to_playlist(self.user_id, playlist_id, id)
 		 end
 	end
 
 	def add_tracks_to_existing_playlist(ids, playlist_id)
-		user_id = 'danfoley85'
 		ids.each do |id|
 			spotify_conn.add_user_tracks_to_playlist(self.user_id, playlist_id, id, position = nil)
 		end
@@ -54,12 +53,11 @@ class PlaylistMaker
 
 	def create_playlist
 		# returns playlist_id and sets instance variable of the same
-		user_id = 'danfoley85'
 		puts ""
 		puts "Enter a Playlist Name"
 		puts ""
 		name = gets.strip
-		new_playlist = spotify_conn.create_user_playlist(user_id, name, is_public = true)
+		new_playlist = spotify_conn.create_user_playlist(self.user_id, name, is_public = true)
 		@playlist_id = new_playlist["id"]
 	end
 
