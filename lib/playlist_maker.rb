@@ -4,7 +4,7 @@ class PlaylistMaker
 
 	def initialize
 		# change this to your user ID
-		@user_id = "danfoley85"
+		@user_id = USER_ID
 	end
 
 	def add_tracks_to_playlist(ids, playlist_id)
