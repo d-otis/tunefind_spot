@@ -17,9 +17,6 @@ class CLI
 		pl.get_token
 
 		!['no', 'n'].include?(input) ? make_playlist(scraper, show_url) : update_playlist(show_url, select_existing_playlist)
-		
-		# !['no', 'n'].include?(input) ? make_playlist(scraper, show_url) : goodbye
-		# !['no', 'n'].include?(input) ? make_playlist(scraper, show_url) : goodbye
 	end
 
 	def pl
