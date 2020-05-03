@@ -79,6 +79,24 @@ class Scraper
 		urls
 	end
 
+	def auth_token
+		driver = Selenium::WebDriver.for :chrome
+		driver.get("https://developer.spotify.com/console/get-playlists/")
+		button = driver.find_element(:class => "btn-green")
+		button.click
+		sleep(1)
+		checks = driver.find_elements(class: "control-indicator")
+		checks.each {|check| check.click}
+		submit = driver.find_element(id: "oauthRequestToken")
+		submit.click
+		sleep(1)
+		driver.find_element(id: "login-username").send_keys(USERNAME)
+		driver.find_element(id: "login-password").send_keys(PASSWORD)
+		driver.find_element(id: "login-button").click
+		sleep(1)
+		oauth = driver.find_element(id: "oauth-input").property("value")
+	end
+
 	def spotify_ids_from_ep_page(url)
 		# spotify uri format:
 		# spotify:track:2wOAeV7IE1vxJDn6LsaywO

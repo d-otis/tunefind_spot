@@ -14,7 +14,7 @@ class CLI
 		# Would you like to make a new playlist?
 		input = gets.strip.downcase
 		# get and/or store token
-		pl.get_token
+		pl.token = scraper.auth_token
 
 		!['no', 'n'].include?(input) ? make_playlist(scraper, show_url) : update_playlist(show_url, select_existing_playlist)
 	end
