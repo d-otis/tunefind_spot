@@ -90,11 +90,13 @@ class Scraper
 		submit = driver.find_element(id: "oauthRequestToken")
 		submit.click
 		sleep(1)
-		driver.find_element(id: "login-username").send_keys(USERNAME)
+		driver.find_element(id: "login-username").send_keys(EMAIL)
 		driver.find_element(id: "login-password").send_keys(PASSWORD)
 		driver.find_element(id: "login-button").click
 		sleep(1)
 		oauth = driver.find_element(id: "oauth-input").property("value")
+		driver.quit
+		oauth
 	end
 
 	def spotify_ids_from_ep_page(url)
