@@ -4,7 +4,7 @@ Easily take a TV show and compile a Spotify playlist with every song used in the
 ## Install Instructions
 1. ```git clone``` this repo
 1. ```bundle install``` gem dependencies
-1. Create a ```credentials.rb``` file in your ```lib``` directory assigning constants to your Spotify login credentials. They must be ```USERNAME``` and ```PASSWORD```. (be sure to ```.gitignore``` this file if you upload to a public repo!)
+1. Create a ```credentials.rb``` file in your ```lib``` directory assigning constants to your Spotify login credentials. They must be ```EMAIL```, ```USER_ID```, and ```PASSWORD```. ```EMAIL``` is separated from ```USER_ID``` because Spotify secretly retains the first username you make and uses this as your primary key in their database when querying their API against your credentials. (be sure to ```.gitignore``` this file if you upload to a public repo!)
 1. You'll want to replace the ```user_id``` in the ```PlaylistMaker``` class with yours.
 1. ```bin/tunefind_to_spotify``` to start
 1. You may encounter some errors with the ```selenium-webdriver``` business as I did while using Chrome, just follow the prompts in the error messaging to make it work--fingers crossed!
